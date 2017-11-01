@@ -8,7 +8,7 @@ from hownoisy.Annotator import Annotator
 SOUNDS_FOLDER = "../data/UrbanSound8k.tar/audio"
 SOUNDS_LABELS_FILE = "../data/UrbanSound8k.tar/metadata/UrbanSound8K.csv"
 
-SOUNDSCAPES_FOLDER = "../data/Soundscapes/"  # input
+SOUNDSCAPES_FOLDER = "../data/Scaper/"  # input
 ANNOTATIONS_FOLDER = "../data/Annotations/"  # output
 
 annotator = Annotator(SOUNDS_FOLDER, SOUNDS_LABELS_FILE)

@@ -18,7 +18,7 @@ SOUNDS_FOLDER = "../data/UrbanSound8k.tar/audio"
 SOUNDS_LABELS_FILE = "../data/UrbanSound8k.tar/metadata/UrbanSound8K.csv"
 
 # INPUT: soundscape recordings
-SOUNDSCAPES_FOLDER = "../data/Soundscapes/"
+SOUNDSCAPES_FOLDER = "../data/Scaper/"
 
 # Intermediary folder for soundscape annotations
 ANNOTATIONS_FOLDER = "../data/Annotations/"

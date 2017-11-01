@@ -5,8 +5,8 @@ import os.path
 
 from hownoisy.Rater import Rater
 
-SOUNDSCAPES_FOLDER = "../data/Soundscapes/"  # input
-ANNOTATIONS_FOLDER = "../data/Soundscapes/"  # input
+SOUNDSCAPES_FOLDER = "../data/Scaper/"  # input
+ANNOTATIONS_FOLDER = "../data/Annotations/"  # input
 RATINGS_FOLDER = "../data/Ratings/"  # output
 
 rater = Rater()

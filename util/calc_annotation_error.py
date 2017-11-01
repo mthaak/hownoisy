@@ -66,15 +66,16 @@ def calc_annotation_error(filepath1, filepath2):
     return error
 
 
-ACTUAL_ANNOTATIONS_FOLDER = "../data/Soundscapes/"
-PREDICTED_ANNOTATIONS_FOLDER = "../data/Annotations/"
+if __name__ == '__main__':
+    ACTUAL_ANNOTATIONS_FOLDER = "../data/Scaper/"
+    PREDICTED_ANNOTATIONS_FOLDER = "../data/Annotations/"
 
-print("SOUNDSCAPE\t\t\tERROR")
-for act, pred in product(glob.glob(ACTUAL_ANNOTATIONS_FOLDER + "*.txt"),
-                         glob.glob(PREDICTED_ANNOTATIONS_FOLDER + "*.txt")):
-    act_basename = os.path.basename(act)
-    pred_basename = os.path.basename(pred)
-    if act_basename == pred_basename:
-        soundscape_column = act_basename + ((20 - len(act_basename)) // 4) * "\t"
-        error = calc_annotation_error(act, pred)
-        print(soundscape_column, error, sep="")
+    print("SOUNDSCAPE\t\t\tERROR")
+    for act, pred in product(glob.glob(ACTUAL_ANNOTATIONS_FOLDER + "*.txt"),
+                             glob.glob(PREDICTED_ANNOTATIONS_FOLDER + "*.txt")):
+        act_basename = os.path.basename(act)
+        pred_basename = os.path.basename(pred)
+        if act_basename == pred_basename:
+            soundscape_column = act_basename + ((20 - len(act_basename)) // 4) * "\t"
+            error = calc_annotation_error(act, pred)
+            print(soundscape_column, error, sep="")

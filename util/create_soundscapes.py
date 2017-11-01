@@ -6,7 +6,7 @@ import numpy as np
 import scaper
 
 # OUTPUT FOLDER
-outfolder = '../data/Soundscapes'
+outfolder = '../data/Scaper'
 
 # SCAPER SETTINGS
 fg_folder = '../data/ByClass'
