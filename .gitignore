@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+data/Soundscapes/*
+data/ByClass/*
 
 # C extensions
 *.so

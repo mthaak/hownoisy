@@ -4,15 +4,17 @@ import os
 
 import numpy as np
 import scaper
+from datetime import datetime
 
 # OUTPUT FOLDER
-outfolder = '../data/Soundscapes'
+# outfolder = '../data/Soundscapes'
+outfolder = '../../soundscapes'
 
 # SCAPER SETTINGS
 fg_folder = '../data/ByClass'
 bg_folder = '../data/ByClass'
 
-n_soundscapes = 10
+n_soundscapes = 1000
 ref_db = -50
 duration = 60.0
 
@@ -23,6 +25,7 @@ for n in range(n_soundscapes):
 
     print('Generating soundscape: {:d}/{:d}'.format(n + 1, n_soundscapes))
 
+    before = datetime.now()
     # create a scaper
     sc = scaper.Scaper(duration, fg_folder, bg_folder)
     sc.protected_labels = ['car_horn', 'dog_bark', 'gun_shot', 'siren']
@@ -57,3 +60,8 @@ for n in range(n_soundscapes):
                 disable_sox_warnings=True,
                 no_audio=False,
                 txt_path=txtfile)
+
+    after = datetime.now()
+    time_took = (after - before).total_seconds() * 1000
+
+    print('Soundscape %d took %d ms to generate' % (n, time_took))
