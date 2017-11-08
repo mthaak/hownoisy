@@ -12,7 +12,7 @@ outfolder = '../data/Scaper'
 fg_folder = '../data/ByClass'
 bg_folder = '../data/ByClass'
 
-n_soundscapes = 10
+n_soundscapes = 100
 ref_db = -50
 duration = 60.0
 

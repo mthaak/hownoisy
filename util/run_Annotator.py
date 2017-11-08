@@ -5,7 +5,7 @@ import os.path
 
 from hownoisy.Annotator import Annotator
 
-SOUNDS_FOLDER = "../data/UrbanSound8k.tar/audio"
+SOUNDS_FOLDER = "../data/UrbanSound8k.tar/audio/"
 SOUNDS_LABELS_FILE = "../data/UrbanSound8k.tar/metadata/UrbanSound8K.csv"
 
 SOUNDSCAPES_FOLDER = "../data/Scaper/"  # input
