@@ -5,21 +5,23 @@ import os
 import numpy as np
 import scaper
 from datetime import datetime
+import sys
+
 
 # OUTPUT FOLDER
 # outfolder = '../data/Soundscapes'
-outfolder = '../../soundscapes'
+outfolder = sys.argv[1]
 
 # SCAPER SETTINGS
 fg_folder = '../data/ByClass'
 bg_folder = '../data/ByClass'
 
-n_soundscapes = 1000
+n_soundscapes = int(sys.argv[2])
 ref_db = -50
-duration = 60.0
+duration = 20.0
 
-min_events = 10
-max_events = 10
+min_events = 5
+max_events = 5
 
 for n in range(n_soundscapes):
 
@@ -38,15 +40,27 @@ for n in range(n_soundscapes):
 
     # add random number of foreground events
     n_events = np.random.randint(min_events, max_events + 1)
-    for _ in range(n_events):
+    time_interval = duration / n_events
+
+    sc.add_event(label=('const', outfolder.split('/')[-1]),
+                 source_file=('choose', []),
+                 source_time=('const', 0.0),
+                 event_time=('uniform', 0.0, duration - 4.0),
+                 event_duration=('const', 4.0),
+                 snr=('const', 3),
+                 pitch_shift=None,
+                 time_stretch=None)
+
+    for idx in range(n_events - 1):
+
         sc.add_event(label=('choose', []),
                      source_file=('choose', []),
                      source_time=('const', 0.0),
-                     event_time=('uniform', 0.0, 60.0),
-                     event_duration=('uniform', 1.0, 4.0),
-                     snr=('uniform', 6, 30),
-                     pitch_shift=('uniform', -3.0, 3.0),
-                     time_stretch=('uniform', 0.8, 1.2))
+                     event_time=('uniform', 0.0, duration - 4.0),
+                     event_duration=('const', 4.0),
+                     snr=('const', 3),
+                     pitch_shift=None,
+                     time_stretch=None)
 
     # generate
     audiofile = os.path.join(outfolder, "soundscape_{:d}.wav".format(n))
