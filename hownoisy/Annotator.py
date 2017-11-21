@@ -181,6 +181,7 @@ class Annotator:
 
     # TODO implement
     def annotate(self, soundscape_wav):
+<<<<<<< HEAD
 
         X, sample_rate = librosa.load(soundscape_wav, sr=None, mono=True)
         if sample_rate != 44100:
@@ -208,4 +209,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

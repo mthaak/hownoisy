@@ -10,14 +10,13 @@ setup(name='How Noisy',
       packages=find_packages(),
       package_data={},
       include_package_data=True,
-      long_description="TODO",
+      long_description='TODO',
       keywords='audio sound soundscape environmental urban quantification',
       license='TODO',
       classifiers=[
-          "TODO",
+            'TODO',
       ],
       install_requires=[
-          'jams==0.2.2',
       ],
       extras_require={
           'docs': [],

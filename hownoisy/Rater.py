@@ -15,12 +15,12 @@ class Rater:
     Component that calculates the final noise rating for a soundscape.
     """
 
-    def rate(self, soundscape_wav, annotation_txt):
+    def rate(self, soundscape_wav, annotation):
         """
         Calculates the final noise rating for the given soundscape recording using the supplied annotation file.
 
         :param soundscape_wav: string with path to WAV file containing the soundscape recording
-        :param annotation_txt: string with path to textfile containing the soundscape annotation
+        :param annotation: string with path to textfile containing the soundscape annotation
         :return: float denoting the noise rating (higher means more noise with a scale of 0-duration in seconds)
         """
 
@@ -32,17 +32,16 @@ class Rater:
             pass
 
         # Converts the sound events from the annotation file to a dict
-        def _read_events(filepath):
+        def _read_events(annotation):
             events = []
-            with open(filepath) as file:
-                for line in file:
-                    if file != '':
-                        try:
-                            split = line.split('\t')
-                            event = {'start': float(split[0]), 'end': float(split[1]), 'class': split[2].rstrip()}
-                            events.append(event)
-                        except:
-                            raise ValueError("Annotation file has illegal format")
+            for line in annotation.split("\r\n"):
+                if line != '':
+                    try:
+                        split = line.split('\t')
+                        event = {'start': float(split[0]), 'end': float(split[1]), 'class': split[2].rstrip()}
+                        events.append(event)
+                    except:
+                        raise ValueError("Annotation has illegal format")
             return events
 
         # Creates a list of pairs of start and end markers for each sound event, sorted by time
@@ -81,11 +80,12 @@ class Rater:
                     rating += sum(map(lambda class_: (b - a) * loudness / len(classes) * ANNOYANCE[class_], classes))
 
                 if marker['isStart']:
-                    classes.append(marker['class'])
+                    class_ = marker['class'].rstrip()
+                    classes.append(class_)
                     try:
-                        ANNOYANCE[marker['class']]
+                        ANNOYANCE[class_]
                     except Exception:
-                        raise ValueError('Annotation file contains illegal class')
+                        raise ValueError('Annotation file contains illegal class ({0})'.format(class_))
                 else:
                     classes.remove(marker['class'])
 
@@ -93,7 +93,7 @@ class Rater:
 
             return rating
 
-        events = _read_events(annotation_txt)
+        events = _read_events(annotation)
         if not events:
             raise ValueError("Annotation file is empty")
         markers = _create_markers(events)
