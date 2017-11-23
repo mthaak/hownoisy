@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 data/Soundscapes/*
 data/ByClass/*
+*.zip
 
 # C extensions
 *.so
