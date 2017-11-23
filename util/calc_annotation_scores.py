@@ -38,10 +38,7 @@ def extract_test_fn_labels(fn, duration=20.0):
 
     return target_classes_labels
 
-
-def main():
-    true_annotation_fn_path = sys.argv[1]
-    pred_annotation_fn_path = sys.argv[2]
+def calc_annotation_scores(true_annotation_fn_path, pred_annotation_fn_path, print_score=True):
 
     true_annotation_target_classes_labels = extract_test_fn_labels(true_annotation_fn_path)
     pred_annotation_target_classes_labels = extract_test_fn_labels(pred_annotation_fn_path)
@@ -58,7 +55,17 @@ def main():
 
     scores = pd.DataFrame(scores)
     scores.columns = ['target_class', 'recall', 'precision', 'f1_score', 'accuracy']
-    print(scores)
+    
+    if print_score:
+        print(scores)
+
+    return scores
+
+def main():
+    true_annotation_fn_path = sys.argv[1]
+    pred_annotation_fn_path = sys.argv[2]
+
+    scores = calc_annotation_scores(true_annotation_fn_path, pred_annotation_fn_path)
 
 if __name__ == "__main__":
     main()
