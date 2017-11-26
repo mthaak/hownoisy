@@ -11,14 +11,7 @@ from hownoisy.Rater import Rater
 ###############################################################################
 # CONFIGURATION PARAMETERS
 
-path = os.path.dirname(__file__)
-
-# Labeled sounds used for annotating the soundscapes
-SOUNDS_FOLDER = path + "/../data/UrbanSound8k.tar/audio/"
-
-# CSV file that contains the labels of all the sounds
-SOUNDS_LABELS_FILE = path + "/../data/UrbanSound8k.tar/metadata/UrbanSound8K.csv"
-
+path = os.path.dirname(os.path.realpath(__file__))
 
 ###############################################################################
 # COMPLETE RUN
@@ -49,17 +42,16 @@ def run(args):
         os.mkdir(args['output'])
 
     # Create Annotator and Rater components
-    annotator = Annotator(SOUNDS_FOLDER, SOUNDS_LABELS_FILE)
+    annotator = Annotator()
     rater = Rater()
 
-    if not args['separate_results']:
-        output_results = ""
+    output_results = ""
 
     n_files = 0
     # Annotate and rate each soundscape one after the other
     for soundscape_wav in files:
         n_files += 1
-        soundscape_name = os.path.basename(soundscape_wav).split(".")[0]
+        soundscape_name = str(os.path.basename(soundscape_wav).split(".")[0])
 
         try:
             if args['running_time']:
