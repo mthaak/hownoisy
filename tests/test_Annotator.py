@@ -2,32 +2,14 @@ import unittest
 
 from hownoisy.Annotator import Annotator
 
-# Labeled sounds used for annotating the soundscapes
-SOUNDS_FOLDER = "../data/UrbanSound8k.tar/audio/"
-
-# CSV file that contains the labels of all the sounds
-SOUNDS_LABELS_FILE = "../data/UrbanSound8k.tar/metadata/UrbanSound8K.csv"
-
 
 class test_Annotator(unittest.TestCase):
     def setUp(self):
-        self.annotator = Annotator(SOUNDS_FOLDER, SOUNDS_LABELS_FILE)
-
-    def test_sounds_folder_not_found(self):
-        with self.assertRaises(FileNotFoundError):
-            Annotator("sounds_folder_nonexistent", SOUNDS_LABELS_FILE)
-
-    def test_sounds_labels_file_not_found(self):
-        with self.assertRaises(FileNotFoundError):
-            Annotator(SOUNDS_FOLDER, "dummy/sounds_labels_file_nonexistent.csv")
+        self.annotator = Annotator()
 
     def test_soundscape_wav_not_found(self):
         with self.assertRaises(FileNotFoundError):
             self.annotator.annotate("dummy/soundscape_nonexistent.wav")
-
-    def test_sounds_labels_file_illegal_format(self):
-        with self.assertRaises(ValueError):
-            Annotator(SOUNDS_FOLDER, "dummy/sounds_labels_file_illegal_format.txt")
 
     def test_soundscape_wav_illegal_format(self):
         with self.assertRaises(ValueError):
