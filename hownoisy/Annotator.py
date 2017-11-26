@@ -39,8 +39,10 @@ class Annotator:
 
         for k, _ in sound_class_table.items():
             detector_path = folder + '/sound_detectors/%s_detector.pkl' % k
-            model = pickle.load(open(detector_path, 'rb'))
-            sound_detectors[k] = model
+
+            with open(detector_path, 'rb') as fd:
+                model = pickle.load(fd)
+                sound_detectors[k] = model
 
         return sound_detectors
 
