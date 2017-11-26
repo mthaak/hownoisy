@@ -63,51 +63,6 @@ class Annotator:
 
         return file_F_features
 
-    def extract_test_fn_labels(self, fn, duration, target_class):
-
-        label_file_path = fn.replace('wav', 'txt')
-
-        with open(label_file_path) as fd:
-            lines = fd.readlines()
-            time_sections_with_label = list(
-                map(lambda x: (float(x[0]), float(x[1]), x[2]), map(lambda x: x.split(), lines)))
-
-        time_intervals = np.arange(0.0, duration, 0.05)
-        labels = np.zeros((time_intervals.shape[0]), dtype=np.int)
-
-        for idx, t in enumerate(time_intervals):
-
-            labels[idx] = -1
-
-            for time_section in time_sections_with_label:
-                if t < time_section[0] or t > time_section[1]:
-                    continue
-
-                if time_section[2] == target_class:
-                    labels[idx] = 1
-                    break
-
-        return labels
-
-    def find_possible_detectors(self, f_path, f_F_features, duration):
-
-        possible_detectors = {}
-
-        for sound_name, model in self.sound_detectors.items():
-
-            y = self.extract_test_fn_labels(fn=f_path, duration=duration, target_class=sound_name)
-            preds = model.predict(f_F_features)
-
-            if recall_score(y, preds) == 0.0:
-                continue
-
-            if precision_score(y, preds) == 0.0:
-                continue
-
-            possible_detectors[sound_name] = model
-
-        return possible_detectors
-
     def gen_segments_annotations(self, f_F_features, possible_detectors):
 
         segments_annotations = [[] for _ in range(f_F_features.shape[0])]
@@ -181,18 +136,17 @@ class Annotator:
             raise Exception('Audio file sample rate is not 44100!')
 
         f_F_features = self.gen_test_fn_features(X, sample_rate)
-        possible_detectors = self.find_possible_detectors(soundscape_wav, f_F_features, X.size / sample_rate)
 
-        segments_annotations = self.gen_segments_annotations(f_F_features, possible_detectors)
+        segments_annotations = self.gen_segments_annotations(f_F_features, self.sound_detectors)
 
-        sound_pieces = self.gen_sound_events_pieces(segments_annotations, possible_detectors)
+        sound_pieces = self.gen_sound_events_pieces(segments_annotations, self.sound_detectors)
         sound_events_annotations = self.gen_sound_events_annotations(sound_pieces)
 
         return sound_events_annotations
 
 
 def main():
-    annotator = Annotator(',', '.')
+    annotator = Annotator()
 
     print('test file name:', sys.argv[1])
 
