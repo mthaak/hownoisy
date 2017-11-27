@@ -6,7 +6,7 @@ from hownoisy.run import run
 
 
 # TODO run unit test
-class test_Rater(unittest.TestCase):
+class test_run(unittest.TestCase):
     def setUp(self):
         if os.path.isdir('output'):
             shutil.rmtree('output')  # remove output folder before tests
@@ -18,8 +18,8 @@ class test_Rater(unittest.TestCase):
 
     def test_input(self):
         args = {
-            'input': ['dummy/soundscape_good.wav', 'dummy/soundscape_illegal_format.mp3', 'dummy'],
-            'output': 'output/',
+            'input': ['tests/dummy/soundscape_good.wav', 'tests/dummy/soundscape_good.mp3', 'dummy'],
+            'output': 'tests/output',
             'separate_results': False,
             'running_time': False,
             'verbose': False
@@ -29,8 +29,8 @@ class test_Rater(unittest.TestCase):
 
     def test_output(self):
         args = {
-            'input': ['dummy/soundscape_good.wav', 'dummy/soundscape_illegal_format.mp3', 'dummy'],
-            'output': 'output/',
+            'input': ['tests/dummy/soundscape_good.wav', 'tests/dummy/soundscape_good.mp3', 'dummy'],
+            'output': 'tests/output',
             'separate_results': False,
             'running_time': False,
             'verbose': False
@@ -41,8 +41,8 @@ class test_Rater(unittest.TestCase):
 
     def test_separate_results_false(self):
         args = {
-            'input': ['dummy/soundscape_good.wav', 'dummy/soundscape_illegal_format.mp3', 'dummy'],
-            'output': 'output/',
+            'input': ['tests/dummy/soundscape_good.wav', 'tests/dummy/soundscape_good.mp3', 'dummy'],
+            'output': 'tests/output',
             'separate_results': False,
             'running_time': False,
             'verbose': False
@@ -66,8 +66,8 @@ class test_Rater(unittest.TestCase):
 
     def test_separate_results_true(self):
         args = {
-            'input': ['dummy/soundscape_good.wav', 'dummy/soundscape_illegal_format.mp3', 'dummy'],
-            'output': 'output/',
+            'input': ['tests/dummy/soundscape_good.wav', 'tests/dummy/soundscape_good.mp3', 'dummy'],
+            'output': 'tests/output',
             'separate_results': True,
             'running_time': False,
             'verbose': False
@@ -86,8 +86,8 @@ class test_Rater(unittest.TestCase):
 
     def test_running_time(self):
         args = {
-            'input': ['dummy/soundscape_good.wav', 'dummy/soundscape_illegal_format.mp3', 'dummy'],
-            'output': 'output/',
+            'input': ['tests/dummy/soundscape_good.wav', 'tests/dummy/soundscape_good.mp3', 'dummy'],
+            'output': 'tests/output',
             'separate_results': False,
             'running_time': True,
             'verbose': False
@@ -110,8 +110,8 @@ class test_Rater(unittest.TestCase):
 
     def test_verbose(self):
         args = {
-            'input': ['dummy/soundscape_good.wav', 'dummy/soundscape_illegal_format.mp3', 'dummy'],
-            'output': 'output/',
+            'input': ['tests/dummy/soundscape_good.wav', 'tests/dummy/soundscape_good.mp3', 'dummy'],
+            'output': 'tests/output',
             'separate_results': False,
             'running_time': False,
             'verbose': True
