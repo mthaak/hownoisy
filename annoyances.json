@@ -1,12 +1,12 @@
 {
-  "air_conditioner": 0.5,
-  "car_horn": 0.9,
-  "children_playing": 0.2,
-  "dog_bark": 0.6,
-  "drilling": 0.8,
-  "engine_idling": 0.6,
+  "air_conditioner": 0.2,
+  "car_horn": 0.6,
+  "children_playing": 0.3,
+  "dog_bark": 0.7,
+  "drilling": 0.7,
+  "engine_idling": 0.2,
   "gun_shot": 1.0,
-  "jackhammer": 0.9,
+  "jackhammer": 0.8,
   "siren": 0.5,
   "street_music": 0.3
 }
