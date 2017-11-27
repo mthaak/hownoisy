@@ -2,9 +2,9 @@ import csv
 import xml.etree.ElementTree as ET
 from random import random
 
-METADATA_FILE = '../data/Soundcities/metadata.xml'
-RATINGS_FOLDER = '../data/Ratings/'
-RESULTS_FILE = 'scaper_results.tsv'
+METADATA_FILE = "../data/Soundcities/metadata.xml"
+RATINGS_FOLDER = "../data/Ratings/"
+RESULTS_FILE = "soundcities_results.tsv"
 
 tree = ET.parse(METADATA_FILE)
 snds = tree.getroot()
@@ -12,8 +12,8 @@ snds = tree.getroot()
 with open(RESULTS_FILE, 'w', newline='', encoding='utf-8') as csvfile:
     csvwriter = csv.writer(csvfile, delimiter='\t', quotechar='\'', quoting=csv.QUOTE_MINIMAL)
     csvwriter.writerow(
-        ['file', 'title', 'mood', 'recorder', 'description', 'date', 'active', 'quality', 'time', 'size', 'lat', 'long',
-         'location', 'RUNNING_TIME', 'NOISE_RATING'])
+        ["file", "title", "mood", "recorder", "description", "date", "active", "quality", "time", "size", "lat", "long",
+         "location", "RUNNING_TIME", "NOISE_RATING"])
 
     for city in snds:
         for snd in city[0]:
@@ -28,7 +28,7 @@ with open(RESULTS_FILE, 'w', newline='', encoding='utf-8') as csvfile:
             time = snd[8].text
             size = snd[9].text
             lat = snd[10][0].text
-            long = snd[10][0].text
+            long = snd[10][1].text
             location = snd[11].text
             time_as_float = float(time)
             RUNNING_TIME = str(round(0.1 * time_as_float * random(), 6))  # fake
