@@ -1,0 +1,12 @@
+{
+  "air_conditioner": 0.5,
+  "car_horn": 0.9,
+  "children_playing": 0.2,
+  "dog_bark": 0.6,
+  "drilling": 0.8,
+  "engine_idling": 0.6,
+  "gun_shot": 1.0,
+  "jackhammer": 0.9,
+  "siren": 0.5,
+  "street_music": 0.3
+}

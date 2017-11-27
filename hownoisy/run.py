@@ -1,20 +1,12 @@
 """
 This module should be executed in order to run the whole HowNoisy pipeline on a set of soundscape recordings.
 """
-import argparse
 import os.path
 from datetime import datetime
 
 from hownoisy.Annotator import Annotator
 from hownoisy.Rater import Rater
 
-###############################################################################
-# CONFIGURATION PARAMETERS
-
-path = os.path.dirname(os.path.realpath(__file__))
-
-###############################################################################
-# COMPLETE RUN
 
 def run(args):
     # Check if all arguments have been set
@@ -89,34 +81,3 @@ def run(args):
         print("HowNoisy completed on {0} files".format(n_files))
 
     return True  # denotes successful completion
-
-
-###############################################################################
-# COMMAND LINE ARGUMENTS
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Run the HowNoisy pipeline.')
-    parser.add_argument('--input', '-i', nargs='*', required=True,
-                        help='files or folders containing the input files')
-
-    parser.add_argument('--output', '-o',
-                        help='folder in which the output file(s) should be stored')
-
-    parser.add_argument('--separate_results', '-sep', action='store_true',
-                        help='whether to put the results in separate text files')
-
-    parser.add_argument('--running_time', '-rt', action='store_true',
-                        help='whether to include the running time (in ms) in the output')
-
-    parser.add_argument('--verbose', '-v', action='store_true',
-                        help='whether to print intermediate steps')
-
-    args = parser.parse_args()
-
-    try:
-        # Add / to end of folder names
-        args.output = args.output if args.output.endswith("/") else args.output + "/"
-    except:
-        args.output = os.getcwd() + "/"  # if output folder not set, then define output as the current working directory
-
-    run(args)  # run pipeline with given command line arguments
