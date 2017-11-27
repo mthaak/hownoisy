@@ -4,7 +4,7 @@ This module contains only the Rater class that calculates the final noise rating
 import json
 import re
 import subprocess
-
+import platform
 
 class Rater:
     """
@@ -41,7 +41,9 @@ class Rater:
             if end == start:
                 return 0
             try:
-                command = ['ffmpeg.exe', '-nostats', '-i', soundscape_wav, '-filter_complex',
+                
+                ffmpeg_executable = 'ffmpeg.exe' if platform.system() == 'Windows' else 'ffmpeg'
+                command = [ffmpeg_executable, '-nostats', '-i', soundscape_wav, '-filter_complex',
                            'atrim={0}:{1}'.format(round(start, 3), round(end, 3)) + ',ebur128=peak=true', '-f', 'null',
                            '-']
                 output = subprocess.check_output(command, stderr=subprocess.STDOUT)
