@@ -4,8 +4,11 @@ __pycache__/
 *$py.class
 data/Soundscapes/*
 data/ByClass/*
+data/Output/
 *.zip
 data/Annotations/
+analysis/scaper_results.tsv
+analysis/detector_performance.tsv
 
 # C extensions
 *.so
