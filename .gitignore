@@ -5,6 +5,7 @@ __pycache__/
 data/Soundscapes/*
 data/ByClass/*
 *.zip
+data/Annotations/
 
 # C extensions
 *.so

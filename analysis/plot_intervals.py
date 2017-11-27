@@ -2,8 +2,10 @@ import json
 
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 
-INPUT_FILE = "data/Scaper/soundscape_x0.txt"
+# INPUT_FILE = "data/Scaper/soundscape_x0.txt"
+INPUT_FILE = sys.argv[1]
 
 with open("annoyances.json") as file:
     annoyances = json.load(file)

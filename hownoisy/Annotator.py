@@ -4,7 +4,6 @@ import sys
 
 import librosa
 import numpy as np
-from sklearn.metrics import recall_score, precision_score
 
 sound_class_table = {
     'air_conditioner': 0,
@@ -20,7 +19,9 @@ sound_class_table = {
 }
 
 folder = os.path.dirname(os.path.realpath(__file__))
-gaussian_mixture_model = pickle.load(open(folder + '/gaussian_mixture_model.pkl', 'rb'))
+
+with open(folder + '/gaussian_mixture_model.pkl', 'rb') as fd:
+    gaussian_mixture_model = pickle.load(fd)
 
 
 def segment_window(audio_len, segment_len, segment_stride):
@@ -28,7 +29,6 @@ def segment_window(audio_len, segment_len, segment_stride):
     while start < audio_len:
         yield start, start + segment_len
         start += segment_stride
-
 
 class Annotator:
     def __init__(self):
@@ -74,6 +74,10 @@ class Annotator:
             for sound_name, model in possible_detectors.items():
 
                 if model.predict([segment_F_feature])[0] == -1:
+                    continue
+                
+                pred_prob = model.predict_proba([segment_F_feature])
+                if pred_prob[0][1] < 0.7:
                     continue
 
                 segments_annotations[idx].append(sound_class_table[sound_name])
@@ -130,7 +134,6 @@ class Annotator:
 
         return sorted(sound_events_annotations, key=lambda event: event[0])
 
-    # TODO implement
     def annotate(self, soundscape_wav):
 
         X, sample_rate = librosa.load(soundscape_wav, sr=None, mono=True)
