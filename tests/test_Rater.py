@@ -24,7 +24,7 @@ class test_Rater(unittest.TestCase):
         with self.assertRaises(FileNotFoundError):
             self.rater.rate("tests/dummy/soundscape_nonexistent.wav", annotation)
 
-    def test_soundscape_wav_illegal_format(self):
+    def test_soundscape_mp3_format(self):
         annotation = self.read_annotation("tests/dummy/annotation_good.txt")
         with self.assertRaises(ValueError):
             self.rater.rate("tests/dummy/soundscape_good.mp3", annotation)
@@ -43,7 +43,7 @@ class test_Rater(unittest.TestCase):
         annotation = self.read_annotation("tests/dummy/annotation_good.txt")
         rating = self.rater.rate("tests/dummy/soundscape_good.wav", annotation)
         self.assertIsInstance(rating, float)
-        self.assertAlmostEqual(rating, 660.0, delta=1.0)
+        self.assertAlmostEqual(rating, 574.0, delta=1.0)
 
 
 if __name__ == '__main__':
