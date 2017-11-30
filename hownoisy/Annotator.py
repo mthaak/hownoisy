@@ -76,9 +76,9 @@ class Annotator:
                 if model.predict([segment_F_feature])[0] == -1:
                     continue
                 
-                pred_prob = model.predict_proba([segment_F_feature])
-                if pred_prob[0][1] < 0.7:
-                    continue
+                # pred_prob = model.predict_proba([segment_F_feature])
+                # if pred_prob[0][1] < 0.7:
+                #     continue
 
                 segments_annotations[idx].append(sound_class_table[sound_name])
 
