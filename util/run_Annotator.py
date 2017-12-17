@@ -5,8 +5,8 @@ import os.path
 
 from hownoisy.Annotator import Annotator
 
-SOUNDSCAPES_FOLDER = "../data/Scaper/"  # input
-ANNOTATIONS_FOLDER = "../data/Annotations/"  # output
+SOUNDSCAPES_FOLDER = "../data/Analysis/"  # input
+ANNOTATIONS_FOLDER = "../data/Analysis_Annotations/"  # output
 
 # Create annotations folder if it does not yet exist
 if not os.path.isdir(ANNOTATIONS_FOLDER):
@@ -20,3 +20,4 @@ for soundscape_wav in glob.glob(SOUNDSCAPES_FOLDER + "*.wav"):
     annotation_filepath = ANNOTATIONS_FOLDER + soundscape_name + ".txt"
     with open(annotation_filepath, 'w', newline="") as file:
         print(annotation_str, file=file)
+    print("done with " + soundscape_name)

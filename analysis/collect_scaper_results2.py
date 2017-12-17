@@ -1,16 +1,11 @@
 import csv
 import glob
-import itertools
 import json
 import os
 
-from util.calc_annotation_error import calc_annotation_error
-from util.calc_annotation_match import calc_annotation_match
-
-SOUNDSCAPES_FOLDER = "data/Analysis/"
-ANNOTATIONS_FOLDER = "data/Analysis_Annotations/"
-RESULTS_FILE = "data/Analysis_Output/results.txt"
-OUTPUT_FILE = "analysis/scaper_results.tsv"
+SOUNDSCAPES_FOLDER = "data/Analysis_Dur/"
+RESULTS_FILE = "data/Analysis_Dur/results.txt"
+OUTPUT_FILE = "analysis/scaper_dur_results.tsv"
 
 with open("annoyances.json") as file:
     annoyances = json.load(file)
@@ -42,26 +37,12 @@ with open(RESULTS_FILE) as file:
 
 with open(OUTPUT_FILE, 'w', newline='', encoding='utf-8') as csvfile:
     csvwriter = csv.writer(csvfile, delimiter='\t', quotechar='\'', quoting=csv.QUOTE_MINIMAL)
-    match_columns = list(
-        itertools.chain(*[(class_ + "_true", class_ + "_pred", class_ + "_overlap") for class_ in classes]))
     csvwriter.writerow(["file", " duration", " num_events", " polyphony_max", " polyphony_gini", " reverb", " avg_snr",
-                        " avg_time_stretch", " avg_pitch_shift", "noise_rating", "running_time",
-                        "annotation_error"] + match_columns)
+                        " avg_time_stretch", " avg_pitch_shift", "noise_rating", "running_time"])
 
     for soundscape_file in glob.glob(SOUNDSCAPES_FOLDER + "*.wav"):
         soundscape_name = os.path.basename(soundscape_file).split(".")[0]
         jams = json.load(open(SOUNDSCAPES_FOLDER + soundscape_name + ".jams"))
-
-        actual_annotation_filepath = SOUNDSCAPES_FOLDER + soundscape_name + ".txt"
-        pred_annotation_filepath = ANNOTATIONS_FOLDER + soundscape_name + ".txt"
-
-        actual_annotation = read_annotation(actual_annotation_filepath)
-        pred_annotation = read_annotation(pred_annotation_filepath)
-
-        annotation_error = calc_annotation_error(actual_annotation, pred_annotation, annoyances)
-        annotation_match = calc_annotation_match(actual_annotation, pred_annotation)
-        match_values = list(itertools.chain(*[annotation_match[class_] for class_ in classes]))
-        match_values = ["{:.6f}".format(v) for v in match_values]
 
         filename = soundscape_name + ".wav"
         duration = jams['file_metadata']['duration']
@@ -77,8 +58,7 @@ with open(OUTPUT_FILE, 'w', newline='', encoding='utf-8') as csvfile:
             noise_rating, running_time = results[filename]
         except:
             noise_rating, running_time = -1, -1
-        annotation_error = round(annotation_error, 6)
 
         csvwriter.writerow(
             [filename, duration, num_events, polyphony_max, polyphony_gini, reverb, avg_snr, avg_time_stretch,
-             avg_pitch_shift, noise_rating, running_time, annotation_error] + match_values)
+             avg_pitch_shift, noise_rating, running_time])

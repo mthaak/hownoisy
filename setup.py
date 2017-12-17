@@ -13,7 +13,7 @@ setup(
     include_package_data=True,
     long_description='',  # TODO
     keywords='soundscape urban quantification acoustic noise sound detection information retrieval',
-    license='',  # TODO
+    license='MIT',
     classifiers=[
     ],
     install_requires=[
